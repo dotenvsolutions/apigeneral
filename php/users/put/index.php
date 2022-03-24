@@ -12,7 +12,7 @@
         odbc_autocommit($connect, FALSE); 
         $empresa = $_GET["e"];
         $data =  json_decode(file_get_contents("php://input"));
-        $query = "SELECT * usuario FROM ge_usuarios WHERE usuario = '{$data->usuario}' AND clave = '{$data->pass}'";
+        $query = "SELECT * usuario FROM ge_usuarios WHERE usuario = '{$data->usuario}' AND clave = '{$data->pass}' AND empresa = '{$empresa}'";
         $res = odbc_exec($connect,$query);
         if(odbc_num_rows($res)==0){
             echo json_encode(['success'=>false,'msg'=>'Usuario no encontrado/registrado']);
