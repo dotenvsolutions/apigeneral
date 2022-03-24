@@ -32,7 +32,8 @@
             if($dt['usuario']==$data->user && $dt['clave']==$data->pass){
                 $getToken = jwt($dt['usuario'],$dt['email']);
                 $generateToken = jwt_encode($getToken,getenv('API_KEY'));
-                $query = "UPDATE ge_usuarios SET token_user = '{$generateToken}',token_exp='{$getToken['exp']}' WHERE empresa = '{$empresa}' usuario = '{$dt['usuario']}'";
+                $query = "UPDATE ge_usuarios SET token_user = '{$generateToken}',token_exp='{$getToken['exp']}' 
+                WHERE empresa = '{$empresa}' AND usuario = '{$dt['usuario']}'";
                 $res = odbc_exec($connect,$query);
                 if(!$res || odbc_error()){
                     echo json_encode(['success'=>false,'msg'=>'No se ha podido actualizar informacion correctamente']);
