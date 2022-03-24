@@ -16,10 +16,7 @@
         }else{
             $data = [];
             $res_jwt = jwt('perdoalex0121','perdoalex0121@gmail.com');
-            /*while($row = odbc_fetch_array($res)){
-                $row = codificar($row);
-                $data[] = $row;
-            }*/
+            
             echo json_encode(['success'=>true,'data'=>$res_jwt]);
         }
         odbc_close($connect);

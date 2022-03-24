@@ -21,6 +21,11 @@
                 "email"=> $email
             ]
         ];
-        $jwt = JWT::encode($token,'mEicK{O{kIuNdv{I)h;(.~l|&.o)FG');
+        
+        return $token;
+    }
+
+    function jwt_encode($token,$key) {
+        $jwt = JWT::encode($token,$key);
         return $jwt;
     }
