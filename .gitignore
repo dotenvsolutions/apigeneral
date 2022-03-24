@@ -1,0 +1,5 @@
+.env
+bootstrap.php
+connectdb.php
+/vendor/*
+vendor/
