@@ -2,6 +2,7 @@
 
     require_once('../../../vendor/autoload.php');
     use Firebase\JWT\JWT as JWT;
+    use Firebase\JWT\Key;
 
     function codificar($data){
         $fila = [];
@@ -31,7 +32,7 @@
     }
 
     function jwt_decode($token,$key){
-        $jwt = JWT::decode($token, $key, 'HS256');
+        $jwt = JWT::decode($token, new Key($key,'HS256'));
         return $jwt;
     }
 
