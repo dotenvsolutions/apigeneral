@@ -53,7 +53,7 @@
             $dt = odbc_fetch_array($res);
             $proveedor = $dt;
         }
-
+        
         $factura = [
             'cabecera'=> [
                 'referencia' => $data->cabecera->referencia,
@@ -63,7 +63,7 @@
                 'accion_usuario' => isset($data->cabecera->autorizacion) && !empty($data->cabecera->autorizacion) ? $data->cabecera->autorizacion : $data->cabecera->ce_clave_acceso,
                 'retencion_iva' => 'N',
                 'retencion_fuente' => 'N',
-                'comentario' => $data->cabecera->observacion,
+                'comentario' => $data->cabecera->comentario,
                 'sustento_tributario' => ['codigo' => '01'],
                 'impuesto' => 0,
                 'fob' => 0,
@@ -77,6 +77,8 @@
             'movimiento'=> [],
             'pago' => []
         ];
+
+        odbc_commit($connect);
         print_r($factura);return;
         /*if(count($data->movimiento)>0){
             foreach($data->movimiento as $k){
