@@ -31,7 +31,7 @@
     }
 
     function jwt_decode($token,$key){
-        $jwt = JWT::decode($token, new Key($key, 'HS256'));
+        $jwt = JWT::decode($token, $key, 'HS256');
         return $jwt;
     }
 
