@@ -42,9 +42,9 @@
             $telefono = is_null($proveedor['telefono']) || empty($proveedor['telefono']) ? 'NULL' : $proveedor['telefono'];
             $e_mail = is_null($proveedor['e_mail']) || empty($proveedor['e_mail']) ? 'NULL' : $proveedor['e_mail'];
             $insert = "INSERT INTO in_proveedor (codigo, nombre, cedula, direccion1, empresa, telefono, e_mail) 
-            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula_ruc']}','{$direccion}','{$empresa}','{$telefono}','{$e_mail}');";
+            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula_ruc']}',{$direccion},{$empresa},{$telefono},{$e_mail});";
             
-            print_r($insert);return;
+            //print_r($insert);return;
             $exec = odbc_exec($connect, $insert);
             if($exec || odbc_error()){
                 odbc_rollback($connect);
@@ -83,7 +83,7 @@
             'pago' => []
         ];
 
-        odbc_commit($connect);
+        //odbc_commit($connect);
         print_r($factura);return;
         /*if(count($data->movimiento)>0){
             foreach($data->movimiento as $k){
