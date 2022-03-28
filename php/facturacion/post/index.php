@@ -26,7 +26,7 @@
         $decode = jwt_decode($token,getenv('API_KEY'));
         $sql = "SELECT TOP 1 * FROM in_proveedor WHERE empresa = '{$empresa}' AND cedula = '{$data->ruc}'";
         $res = odbc_exec($connect, $sql);
-        if(odbc_num_rows($rese)==0){
+        if(odbc_num_rows($res)==0){
             $sql = "SELECT TOP 1 * FROM in_cliente WHERE empresa = '{$empresa}' AND cedula_ruc = '{$data->ruc}';";
             $res_1 = odbc_exec($connect, $sql);
             if(odbc_num_rows($res_1)==0){
