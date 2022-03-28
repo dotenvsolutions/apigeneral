@@ -19,5 +19,7 @@
         $empresa = $_GET["e"];
         $data =  json_decode(file_get_contents("php://input"));
         $headers = apache_request_headers();
-        print_r($headers);return;
+        $token = str_replace('Bearer ', '', $headers['Authorization']);
+        $decode = jwt_decode($token,getenv('API_KEY'));
+        print_r($decode);
     }

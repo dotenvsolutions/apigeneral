@@ -28,6 +28,7 @@
                 $row = codificar($row);
                 $dt = $row;
             }
+            
             //print_r($row);return;
             if($dt['usuario']==$data->user && $dt['clave']==$data->pass){
                 $getToken = jwt($dt['usuario'],$dt['email']);
