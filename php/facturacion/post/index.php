@@ -60,7 +60,7 @@
                 'estacion' => $data->cabecera->estacion,
                 'punto' => $data->cabecera->punto,
                 'proveedor' => $proveedor,
-                'accion_usuario' => isset($data->cabecera->autorizacion) && !empty($data->cabecera->autorizacion) ? $data->cabecera->autorizacion : NULL,
+                'accion_usuario' => isset($data->cabecera->autorizacion) && !empty($data->cabecera->autorizacion) ? $data->cabecera->autorizacion : $data->cabecera->ce_clave_acceso,
                 'retencion_iva' => 'N',
                 'retencion_fuente' => 'N',
                 'comentario' => $data->cabecera->observacion,
