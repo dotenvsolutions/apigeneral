@@ -45,7 +45,7 @@
             $query.="(SELECT parametro FROM web_ge_parametros WHERE empresa = '$empresa' AND codigo = '{$i}') p$i";
             $index++;
         }
-        $res = odbc_exec($this->connect, $query);
+        $res = odbc_exec($connect, $query);
 
         if (odbc_error()){
             return array(
@@ -68,7 +68,7 @@
             $query.="(SELECT parametro FROM ge_parametros WHERE empresa = '$empresa' AND codigo = '{$i}') p$i";
             $index++;
         }
-        $res = odbc_exec($this->connect, $query);
+        $res = odbc_exec($connect, $query);
 
         if (odbc_error()){
             return array(
