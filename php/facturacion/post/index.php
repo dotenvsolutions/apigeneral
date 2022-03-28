@@ -39,7 +39,7 @@
             }
             $codigo = NuevoCodigoDecimal($connect,'in_proveedor','codigo',NULL,NULL,$empresa);
             $insert = "INSERT INTO in_proveedor (codigo, nombre, cedula, direccion1, empresa, telefono, e_mail) 
-            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula']}','{$proveedor['direccion1']}','{$empresa}','{$proveedor['telefono']}','{$proveedor['e_mail']}')";
+            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula_ruc']}','{$proveedor['direccion1']}','{$empresa}','{$proveedor['telefono']}','{$proveedor['e_mail']}')";
             $exec = odbc_exec($connect, $insert);
             if($exec || odbc_error()){
                 odbc_rollback($connect);
@@ -60,7 +60,7 @@
                 'estacion' => $data->cabecera->estacion,
                 'punto' => $data->cabecera->punto,
                 'proveedor' => $proveedor,
-                'accion_usuario' => $data->cabecera->autorizacion,
+                'accion_usuario' => isset($data->cabecera->autorizacion) && !empty($data->cabecera->autorizacion) ? $data->cabecera->autorizacion : NULL,
                 'retencion_iva' => 'N',
                 'retencion_fuente' => 'N',
                 'comentario' => $data->cabecera->observacion,
