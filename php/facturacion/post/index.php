@@ -85,7 +85,7 @@
         //
         if(count($data->movimiento)>0){
             foreach($data->movimiento as $k){
-                $factura[0]['movimiento'] = [
+                $factura['movimiento'] = [
                     'producto' => [
                         'codigo' => $k->producto->codigo
                     ],
