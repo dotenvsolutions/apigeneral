@@ -18,7 +18,7 @@
         odbc_autocommit($connect, FALSE); 
         $empresa = $_GET["e"];
         $proveedor = [];
-        $param = params($empresa,[228]);
+        $param = params($empresa,[228],$connect);
         $codigo = NuevoCodigoDecimal($connect,'in_proveedor','codigo',NULL,NULL,$empresa);
         $data =  json_decode(file_get_contents("php://input"));
         $headers = apache_request_headers();

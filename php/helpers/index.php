@@ -36,7 +36,7 @@
         return $jwt;
     }
 
-    function webparams($empresa, $params) {
+    function webparams($empresa, $params,$connect) {
         $query="SELECT ";
         $index=0;
         foreach ($params as $i) {
@@ -59,7 +59,7 @@
         return ['success' => true,'data' => $data];
     }
 
-    function params($empresa, $params) {
+    function params($empresa, $params,$connect) {
         $query="SELECT ";
         $index=0;
         foreach ($params as $i) {
