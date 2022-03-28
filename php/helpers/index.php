@@ -84,3 +84,11 @@
             'data' => $data
         );
     }
+
+    function NuevoCodigoDecimal($conexion, $tabla, $campo,  $tipoName, $tipo, $empresa)
+    {	
+        $extra = (is_null($tipo) || empty($tipo)) ? "" : "AND ".$tipoName."='".$tipo."'";
+        $query ="SELECT COUNT(*) c , MAX(CAST($campo AS DECIMAL)) m FROM $tabla WHERE empresa='$empresa' AND  ISNUMERIC($campo) = 1 $extra ";
+        $result = odbc_exec($conexion, $query);
+        return (odbc_result($result, 1)>0) ? odbc_result($result, 2)+1 : 1;
+    } 
