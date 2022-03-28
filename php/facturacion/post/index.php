@@ -38,8 +38,11 @@
                 }
             }
             $codigo = NuevoCodigoDecimal($connect,'in_proveedor','codigo',NULL,NULL,$empresa);
+            $direccion = is_null($proveedor['direccion1']) || empty($proveedor['direccion1']) ? 'NULL' : $proveedor['direccion1'];
+            $telefono = is_null($proveedor['telefono']) || empty($proveedor['telefono']) ? 'NULL' : $proveedor['telefono'];
+            $e_mail = is_null($proveedor['e_mail']) || empty($proveedor['e_mail']) ? 'NULL' : $proveedor['e_mail'];
             $insert = "INSERT INTO in_proveedor (codigo, nombre, cedula, direccion1, empresa, telefono, e_mail) 
-            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula_ruc']}','{$proveedor['direccion1']}','{$empresa}','{$proveedor['telefono']}','{$proveedor['e_mail']}')";
+            VALUES ('{$codigo}','{$proveedor['nombre']}','{$proveedor['cedula_ruc']}','{$direccion}','{$empresa}','{$telefono}','{$e_mail}');";
             
             print_r($insert);return;
             $exec = odbc_exec($connect, $insert);
