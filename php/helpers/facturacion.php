@@ -80,7 +80,7 @@
 		    //Fin
 
 		    $data->cabecera->caja = isset($data->cabecera->caja->codigo) ? $data->cabecera->caja->codigo : '';
-		    print_r($data->cabecera->caja);return;
+		    //print_r($data->cabecera->caja);return;
 			$data->cabecera->destino = isset($data->cabecera->destino->codigo) && !empty($data->cabecera->destino->codigo) ? "'" . $data->cabecera->destino->codigo . "'" : 'NULL';
 		    $data->cabecera->sustento_tributario = isset($data->cabecera->sustento_tributario->codigo) && !empty($data->cabecera->sustento_tributario->codigo) ? "'".$data->cabecera->sustento_tributario->codigo."'" : "NULL";
 		    $data->cabecera->tipo_comprobante = isset($data->cabecera->tipo_comprobante->codigo) && !empty($data->cabecera->tipo_comprobante->codigo) ? "'".$data->cabecera->tipo_comprobante->codigo."'" : "NULL";
