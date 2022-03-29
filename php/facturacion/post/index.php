@@ -6,6 +6,7 @@
     header("Access-Control-Allow-Methods: POST, OPTIONS");
     header('Content-Type: application/json');
     require_once('../../helpers/index.php');
+    require_once('../../helpers/facturacion.php');
 
     $op = $_GET['op'];
     switch($op){
@@ -20,6 +21,7 @@
         $proveedor = [];
         $param = params($empresa,[228],$connect);
         $codigo = NuevoCodigoDecimal($connect,'in_proveedor','codigo',NULL,NULL,$empresa);
+        $putFacturacion = new putFacturacion($connect);
         $data =  json_decode(file_get_contents("php://input"));
         $headers = apache_request_headers();
         $token = str_replace('Bearer ', '', $headers['Authorization']);
@@ -81,8 +83,6 @@
             'pago' => []
         ];
 
-        //odbc_commit($connect);
-        //
         if(count($data->movimiento)>0){
             foreach($data->movimiento as $k){
                 $factura['movimiento'] = [
@@ -109,6 +109,11 @@
                 ];
             }
         }
-
+        
+        $res = $putFacturacion->factura_compra($empresa, $data);
+        if(!$res['success'])
+            odbc_rollback($connect);
+        else
+            odbc_commit($connect);
         print_r($factura);return;
     }

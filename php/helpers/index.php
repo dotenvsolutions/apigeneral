@@ -92,3 +92,18 @@
         $result = odbc_exec($conexion, $query);
         return (odbc_result($result, 1)>0) ? odbc_result($result, 2)+1 : 1;
     } 
+
+    function nullifempty ($data, $property, $subproperty = NULL)
+{
+	if (!isset($data->{$property}) || $data->{$property} == '')
+		return "NULL";
+
+	if (!is_null($subproperty))
+		if (!isset($data->{$property}->{$subproperty}) || trim($data->{$property}->{$subproperty}) == '')
+			return "NULL";
+
+	if (is_null($subproperty))
+		return "'".$data->{$property}."'";
+	else
+		return "'".$data->{$property}->{$subproperty}."'";
+}
