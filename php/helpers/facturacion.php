@@ -19,7 +19,7 @@
 		    //Verificar si ya existe una compra con ese proveedor y esa referencia
 		    /*if (!empty($data->cabecera->referencia)){
 		        $referencia = intval($data->cabecera->referencia);
-		        $query="SELECT COUNT(*) n FROM in_cabecera WHERE empresa = '$empresa' AND tipo = 'CP' AND estacion = '{$data->cabecera->estacion}' AND punto = '{$data->cabecera->punto}' AND CAST(referencia AS NUMERIC) = $referencia AND pro_cli = '{$data->cabecera->cliente->codigo}' AND  ISNUMERIC(referencia) = 1 ";
+		        $query="SELECT COUNT(*) n FROM in_cabecera WHERE empresa = '$empresa' AND tipo = 'CP' AND estacion = '{$data->cabecera->estacion}' AND punto = '{$data->cabecera->punto}' AND CAST(referencia AS NUMERIC) = $referencia AND pro_cli = '{$data->cabecera->proveedor->codigo}' AND  ISNUMERIC(referencia) = 1 ";
 		        $res = odbc_exec($this->connect, $query);
 		        $res = odbc_fetch_object($res);
 
@@ -32,18 +32,18 @@
 		        }     
 		    }*/
 		    
-            print_r($data);return;
+            //print_r($data);return;
 		    //Actualizar proveedor
 		    $cod_rf = isset($data->movimiento[0]->cod_rf->codigo) ? $data->movimiento[0]->cod_rf->codigo : '';
 		    $cod_ri = isset($data->movimiento[0]->cod_ri->codigo) ? $data->movimiento[0]->cod_ri->codigo : '';
-		    $data->cabecera->cliente->direccion1 = isset($data->cabecera->cliente->direccion1) ? $data->cabecera->cliente->direccion1 : '';
-		    $data->cabecera->cliente->telefono = isset($data->cabecera->cliente->telefono) ? $data->cabecera->cliente->telefono : '';
+		    $data->cabecera->proveedor->direccion1 = isset($data->cabecera->proveedor->direccion1) ? $data->cabecera->proveedor->direccion1 : '';
+		    $data->cabecera->proveedor->telefono = isset($data->cabecera->proveedor->telefono) ? $data->cabecera->proveedor->telefono : '';
 		    $query="UPDATE in_proveedor SET
-		    nombre  = '{$data->cabecera->cliente->nombre}',
-		    direccion1 = '{$data->cabecera->cliente->direccion1}',
-		    telefono = '{$data->cabecera->cliente->telefono}',
-		    e_mail = '{$data->cabecera->cliente->e_mail}'
-		    WHERE codigo = '{$data->cabecera->cliente->codigo}' AND empresa = '$empresa'";
+		    nombre  = '{$data->cabecera->proveedor->nombre}',
+		    direccion1 = '{$data->cabecera->proveedor->direccion1}',
+		    telefono = '{$data->cabecera->proveedor->telefono}',
+		    e_mail = '{$data->cabecera->proveedor->e_mail}'
+		    WHERE codigo = '{$data->cabecera->proveedor->codigo}' AND empresa = '$empresa'";
 
 		    //odbc_exec($this->connect, utf8_decode($query));
 
@@ -114,7 +114,7 @@
 		    //Fin
 
 		    $query="INSERT INTO in_cabecera (tipo,documento,empresa,fecha,fechav,fecha_usuario,pro_cli,referencia,accion_usuario,orden,estacion,punto,$campo_retencion_iva,$campo_retencion_fuente,comentario,descuento,$campo_tipo_comprobante,$campo_sustento_tributario, transporte, caja, impuesto, destino, compra_importada, fob, seguro, flete, otros, orden_tipo, stado, comprobante_fecha) 
-		    VALUES ('CP','$documento', '$empresa', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha}, '{$data->cabecera->cliente->codigo}', '{$data->cabecera->referencia}', '{$data->cabecera->accion_usuario}','{$data->cabecera->orden}','{$data->cabecera->estacion}','{$data->cabecera->punto}', '{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}','{$data->cabecera->comentario}',0,{$data->cabecera->tipo_comprobante},{$data->cabecera->sustento_tributario},0, '{$data->cabecera->caja}', '{$data->cabecera->impuesto}', {$data->cabecera->destino}, {$data->cabecera->compra_importada} , {$data->cabecera->fob} , {$data->cabecera->seguro} , {$data->cabecera->flete}, {$data->cabecera->otros}, {$data->cabecera->orden_tipo}, {$stado}, '{$data->cabecera->comprobante_fecha}');";
+		    VALUES ('CP','$documento', '$empresa', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha}, '{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}', '{$data->cabecera->accion_usuario}','{$data->cabecera->orden}','{$data->cabecera->estacion}','{$data->cabecera->punto}', '{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}','{$data->cabecera->comentario}',0,{$data->cabecera->tipo_comprobante},{$data->cabecera->sustento_tributario},0, '{$data->cabecera->caja}', '{$data->cabecera->impuesto}', {$data->cabecera->destino}, {$data->cabecera->compra_importada} , {$data->cabecera->fob} , {$data->cabecera->seguro} , {$data->cabecera->flete}, {$data->cabecera->otros}, {$data->cabecera->orden_tipo}, {$stado}, '{$data->cabecera->comprobante_fecha}');";
             print_r($query);return;
             odbc_exec($this->connect, utf8_decode($query));
 
@@ -186,8 +186,8 @@
 		            }
 
 		            if (isset($i->producto->codigo_xml) && !empty($i->producto->codigo_xml)){
-		                $query_producto_nuevo="DELETE FROM ce_item_proveedor WHERE empresa = '$empresa' AND proveedor = '{$data->cabecera->cliente->codigo}' AND item_xml = '{$i->producto->codigo_xml}';
-		                INSERT INTO ce_item_proveedor (item, proveedor, empresa, item_xml) VALUES ('{$i->producto->codigo}', '{$data->cabecera->cliente->codigo}', '$empresa', '{$i->producto->codigo_xml}')";
+		                $query_producto_nuevo="DELETE FROM ce_item_proveedor WHERE empresa = '$empresa' AND proveedor = '{$data->cabecera->proveedor->codigo}' AND item_xml = '{$i->producto->codigo_xml}';
+		                INSERT INTO ce_item_proveedor (item, proveedor, empresa, item_xml) VALUES ('{$i->producto->codigo}', '{$data->cabecera->proveedor->codigo}', '$empresa', '{$i->producto->codigo_xml}')";
 		                odbc_exec($this->connect, $query_producto_nuevo);
 		                if (odbc_error()){
 		                    return array(
@@ -231,7 +231,7 @@
 
 		        $movimiento = "INSERT INTO in_movimiento (empresa, tipo, documento, cantidad, valor, descuento, impuesto, producto, costo, ubicacion, cod_rf, cod_ri, codigo_concepto_retencion, bonificacion, proyecto, rubro, clase, cod_rubro, componente, capitulo,serie, cif, arancel, fodinfa, otros, medida)
 		        VALUES ('$empresa', 'CP','$documento', '$i->cantidad','$i->valor','$i->descuento', '$i->impuesto', '{$i->producto->codigo}', '$i->valor', '{$i->ubicacion->codigo}', '{$i->cod_rf}', '{$i->cod_ri}', '{$i->codigo_concepto_retencion}', 0, $i->proyecto, $i->rubro, $i->clase, $i->codrubro, $i->componente, $i->capitulo,'{$i->serie}', $i->cif, $i->arancel, $i->fodinfa, $i->otros, $i->medida);
-		        UPDATE in_item SET proveedor = '{$data->cabecera->cliente->codigo}' WHERE empresa = '$empresa'  AND codigo = '{$i->producto->codigo}';";
+		        UPDATE in_item SET proveedor = '{$data->cabecera->proveedor->codigo}' WHERE empresa = '$empresa'  AND codigo = '{$i->producto->codigo}';";
 		        odbc_exec($this->connect, $movimiento);	
 		        if(odbc_error()){
 			       	return array(
