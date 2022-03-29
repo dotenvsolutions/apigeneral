@@ -109,7 +109,7 @@
                 ];
             }
         }
-        
+        $factura = json_decode(json_encode($factura), FALSE);
         $res = $putFacturacion->factura_compra($empresa, $factura);
         if(!$res['success'])
             odbc_rollback($connect);
