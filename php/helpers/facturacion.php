@@ -32,7 +32,7 @@
 		        }     
 		    }*/
 		    
-
+            print_r($data);return;
 		    //Actualizar proveedor
 		    $cod_rf = isset($data->movimiento[0]->cod_rf->codigo) ? $data->movimiento[0]->cod_rf->codigo : '';
 		    $cod_ri = isset($data->movimiento[0]->cod_ri->codigo) ? $data->movimiento[0]->cod_ri->codigo : '';
