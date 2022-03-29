@@ -92,7 +92,7 @@
 		    $data->cabecera->stado = nullifempty($data->cabecera, 'stado');
 
 		    $carga_compra = $data->cabecera->stado == "'X'" || false;
-		    $stado = $data->cabecera->stado == "'L'" ? "'L'" : "NULL";
+		    $stado = isset($data->cabecera->stado) ? "'L'" : "NULL";
 
 
 		    //Verificar si la compra viene de una mercadería en tránsito para eliminarla
@@ -113,8 +113,13 @@
 		    }*/
 		    //Fin
 
-		    $query="INSERT INTO in_cabecera (tipo,documento,empresa,fecha,fechav,fecha_usuario,pro_cli,referencia,accion_usuario,orden,estacion,punto,$campo_retencion_iva,$campo_retencion_fuente,comentario,descuento,$campo_tipo_comprobante,$campo_sustento_tributario, transporte, caja, impuesto, destino, compra_importada, fob, seguro, flete, otros, orden_tipo, stado, comprobante_fecha) 
-		    VALUES ('CP','$documento', '$empresa', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha}, '{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}', '{$data->cabecera->accion_usuario}','{$data->cabecera->orden}','{$data->cabecera->estacion}','{$data->cabecera->punto}', '{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}','{$data->cabecera->comentario}',0,{$data->cabecera->tipo_comprobante},{$data->cabecera->sustento_tributario},0, '{$data->cabecera->caja}', '{$data->cabecera->impuesto}', {$data->cabecera->destino}, {$data->cabecera->compra_importada} , {$data->cabecera->fob} , {$data->cabecera->seguro} , {$data->cabecera->flete}, {$data->cabecera->otros}, {$data->cabecera->orden_tipo}, {$stado}, '{$data->cabecera->comprobante_fecha}');";
+		    $query="INSERT INTO in_cabecera (tipo,documento,empresa,fecha,fechav,fecha_usuario,pro_cli,referencia,accion_usuario,
+			estacion,punto,comentario,caja,retencion_iva,retencion_fuente,sustento_tributario,impuesto,seguro) 
+		    VALUES ('CP','{$documento}', '{$empresa}', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha},
+			'{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}','{$data->cabecera->accion_usuario}',
+			'{$data->cabecera->estacion}','{$data->cabecera->punto}','{$data->cabecera->comentario}','{$data->cabecera->caja->codigo}',
+			'{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}',{$data->cabecera->sustento_tributario},
+			'{$data->cabecera->impuesto}',{$data->cabecera->seguro});";
             print_r($query);return;
             odbc_exec($this->connect, utf8_decode($query));
 

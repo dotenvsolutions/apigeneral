@@ -68,6 +68,7 @@
                 'accion_usuario' => isset($data->cabecera->autorizacion) && !empty($data->cabecera->autorizacion) ? $data->cabecera->autorizacion : $data->cabecera->ce_clave_acceso,
                 'retencion_iva' => 'N',
                 'retencion_fuente' => 'N',
+                'caja'=>['codigo'=>$data->cabecera->caja->codigo],
                 'comentario' => $data->cabecera->comentario,
                 'sustento_tributario' => ['codigo' => '01'],
                 'impuesto' => 0,
