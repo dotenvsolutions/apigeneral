@@ -118,7 +118,7 @@
             echo json_encode(['success'=>false,'msg'=>$res['msg']]);
         }else{
             odbc_commit($connect);
-            echo json_encode(['success'=>true,'msg'=>$res['msg']]);
+            echo json_encode(['success'=>true,'msg'=>$res['msg'],'data'=>$res['data']['documento']]);
         }
         //print_r($factura);return;
     }

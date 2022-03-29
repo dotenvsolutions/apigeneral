@@ -10,6 +10,7 @@
         }
 
         public function factura_compra($empresa, $data) {
+			error_reporting(0);
 	    	//$getOpciones=new getOpciones($this->connect);
 	    	//$svcsFacturacion=new svcsFacturacion($this->connect,$empresa);
 	    	//$webparams = webparams($empresa, [125,143],$this->connect);
