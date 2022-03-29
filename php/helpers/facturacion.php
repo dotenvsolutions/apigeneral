@@ -12,7 +12,7 @@
         public function factura_compra($empresa, $data) {
 	    	//$getOpciones=new getOpciones($this->connect);
 	    	//$svcsFacturacion=new svcsFacturacion($this->connect,$empresa);
-	    	$webparams = webparams($empresa, [125,143]);
+	    	$webparams = webparams($empresa, [125,143],$this->connect);
 	    	$documento = NuevoCodigoDecimal($this->connect, 'in_cabecera', 'documento', 'tipo', 'CP', $empresa);
 		    $codigos_nuevos_productos = [];
 
@@ -57,7 +57,7 @@
 
 
 		    //Parametrizaciones
-		    $query = "SELECT 
+		    /*$query = "SELECT 
 		    (SELECT parametro FROM web_ge_parametros WHERE empresa = '$empresa' AND codigo = 19) campo_retencion,
 		    (SELECT parametro FROM web_ge_parametros WHERE empresa = '$empresa' AND codigo = 22) campo_tipo_comprobante,
 		    (SELECT parametro FROM web_ge_parametros WHERE empresa = '$empresa' AND codigo = 23) campo_sustento_tributario,
@@ -76,7 +76,7 @@
 		    else{
 		        $campo_retencion_fuente = 'contabilidad';
 		        $campo_retencion_iva = 'contabiliza_tran';
-		    }
+		    }*/
 		    //Fin
 
 		    $data->cabecera->caja = isset($data->cabecera->caja->codigo) ? $data->cabecera->caja->codigo : '';
