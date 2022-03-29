@@ -113,9 +113,12 @@
         }
         $factura = json_decode(json_encode($factura), FALSE);
         $res = $putFacturacion->factura_compra($empresa, $factura);
-        if(!$res['success'])
+        if(!$res['success']){
             odbc_rollback($connect);
-        else
+            echo json_encode(['success'=>false,'msg'=>$res['msg']]);
+        }else{
             odbc_commit($connect);
+            echo json_encode(['success'=>true,'msg'=>$res['msg']]);
+        }
         //print_r($factura);return;
     }

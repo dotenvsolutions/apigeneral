@@ -237,13 +237,13 @@
 
 		        $movimiento = "INSERT INTO in_movimiento (empresa, tipo, documento, cantidad, valor, descuento, impuesto, producto,
 				costo, ubicacion, cod_rf, cod_ri, codigo_concepto_retencion, bonificacion, proyecto, rubro, clase, cod_rubro,
-				componente, capitulo,serie, cif, arancel, fodinfa, otros, medida)
+				componente, capitulo,serie, cif, arancel, fodinfa, otros)
 		        VALUES ('{$empresa}', 'CP','{$documento}', '$i->cantidad','$i->valor','$i->descuento', '$i->impuesto', 
 				'{$i->producto->codigo}', '$i->valor', '{$i->ubicacion->codigo}', '{$i->cod_rf}', '{$i->cod_ri}', 
 				'{$i->codigo_concepto_retencion}', 0, $i->proyecto, $i->rubro, $i->clase, $i->codrubro, $i->componente, 
-				$i->capitulo,'{$i->serie}', $i->cif, $i->arancel, $i->fodinfa, $i->otros, $i->medida);
+				$i->capitulo,'{$i->serie}', $i->cif, $i->arancel, $i->fodinfa, $i->otros);
 		        /*UPDATE in_item SET proveedor = '{$data->cabecera->proveedor->codigo}' WHERE empresa = '{$empresa}'  AND codigo = '{$i->producto->codigo}';*/";
-		        print_r($movimiento);return;
+		        //print_r($movimiento);return;
 				odbc_exec($this->connect, $movimiento);	
 		        if(odbc_error()){
 			       	return array(
