@@ -45,7 +45,7 @@
 		    e_mail = '{$data->cabecera->proveedor->e_mail}'
 		    WHERE codigo = '{$data->cabecera->proveedor->codigo}' AND empresa = '$empresa'";
 
-		    //odbc_exec($this->connect, utf8_decode($query));
+		    odbc_exec($this->connect, utf8_decode($query));
 
 		    if (odbc_error()){
 		        return array(
@@ -113,15 +113,15 @@
 			    $data->cabecera->compra_importada = "'S'";
 		    }*/
 		    //Fin
-
+			$documento = NuevoCodigoDecimal($this->connect, 'in_cabecera', 'documento', 'tipo', 'CP', $empresa);
 		    $query="INSERT INTO in_cabecera (tipo,documento,empresa,fecha,fechav,fecha_usuario,pro_cli,referencia,accion_usuario,
-			estacion,punto,comentario,caja,retencion_iva,retencion_fuente,sustento_tributario,impuesto,seguro) 
-		    VALUES ('CP','{$documento}', '{$empresa}', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha},
-			'{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}','{$data->cabecera->accion_usuario}',
+			estacion,punto,comentario,caja,retencion_iva,retencion_fuente,sustento_tributario,impuesto,seguro,vendedor,transporte,
+			fecha_retencion,documento2) VALUES ('CP','{$documento}', '{$empresa}', {$data->cabecera->fecha},{$data->cabecera->fechav},
+			{$data->cabecera->fecha},'{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}','{$data->cabecera->accion_usuario}',
 			'{$data->cabecera->estacion}','{$data->cabecera->punto}','{$data->cabecera->comentario}','{$data->cabecera->caja}',
-			'{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}',{$data->cabecera->sustento_tributario},
-			'{$data->cabecera->impuesto}',{$data->cabecera->seguro});";
-            print_r($query);return;
+			NULL,NULL,{$data->cabecera->sustento_tributario},'{$data->cabecera->impuesto}',{$data->cabecera->seguro},NULL,0,NULL,
+			{$data->cabecera->tipo_comprobante});";
+            //print_r($query);return;
             odbc_exec($this->connect, utf8_decode($query));
 
 		    if (odbc_error()){
@@ -235,10 +235,16 @@
 		        }*/
 
 
-		        $movimiento = "INSERT INTO in_movimiento (empresa, tipo, documento, cantidad, valor, descuento, impuesto, producto, costo, ubicacion, cod_rf, cod_ri, codigo_concepto_retencion, bonificacion, proyecto, rubro, clase, cod_rubro, componente, capitulo,serie, cif, arancel, fodinfa, otros, medida)
-		        VALUES ('$empresa', 'CP','$documento', '$i->cantidad','$i->valor','$i->descuento', '$i->impuesto', '{$i->producto->codigo}', '$i->valor', '{$i->ubicacion->codigo}', '{$i->cod_rf}', '{$i->cod_ri}', '{$i->codigo_concepto_retencion}', 0, $i->proyecto, $i->rubro, $i->clase, $i->codrubro, $i->componente, $i->capitulo,'{$i->serie}', $i->cif, $i->arancel, $i->fodinfa, $i->otros, $i->medida);
-		        UPDATE in_item SET proveedor = '{$data->cabecera->proveedor->codigo}' WHERE empresa = '$empresa'  AND codigo = '{$i->producto->codigo}';";
-		        odbc_exec($this->connect, $movimiento);	
+		        $movimiento = "INSERT INTO in_movimiento (empresa, tipo, documento, cantidad, valor, descuento, impuesto, producto,
+				costo, ubicacion, cod_rf, cod_ri, codigo_concepto_retencion, bonificacion, proyecto, rubro, clase, cod_rubro,
+				componente, capitulo,serie, cif, arancel, fodinfa, otros, medida)
+		        VALUES ('{$empresa}', 'CP','{$documento}', '$i->cantidad','$i->valor','$i->descuento', '$i->impuesto', 
+				'{$i->producto->codigo}', '$i->valor', '{$i->ubicacion->codigo}', '{$i->cod_rf}', '{$i->cod_ri}', 
+				'{$i->codigo_concepto_retencion}', 0, $i->proyecto, $i->rubro, $i->clase, $i->codrubro, $i->componente, 
+				$i->capitulo,'{$i->serie}', $i->cif, $i->arancel, $i->fodinfa, $i->otros, $i->medida);
+		        /*UPDATE in_item SET proveedor = '{$data->cabecera->proveedor->codigo}' WHERE empresa = '{$empresa}'  AND codigo = '{$i->producto->codigo}';*/";
+		        print_r($movimiento);return;
+				odbc_exec($this->connect, $movimiento);	
 		        if(odbc_error()){
 			       	return array(
 			            'success'=>false, 
@@ -327,7 +333,7 @@
 
 		    
 
-		    $query ="";
+		    /*$query ="";
 		    foreach ($data->pago as $i){
 		        $i->banco = (isset($i->banco->secuencia)) ? $i->banco->secuencia : '';
 		        $query .="INSERT INTO cxc_auxiliar (documento,tipo,forma_pago,fechae,fechav,valor,empresa,entidad,banco,cuenta,numero,observacion, retencion, ret_iva, descuento) 
@@ -339,7 +345,7 @@
 			            'msg'=>'Ocurrió un error al guardar los pagos de la factura: '.substr(odbc_errormsg($this->connect),35)
 			        );
 			    }
-		    }
+		    }*/
 	   	
 
 
@@ -348,7 +354,7 @@
 		        'msg'=>'Factura de compra registrada exitosamente!',
 		        'data' => array(
 		            'documento' => $documento,
-		            'codigos_nuevos_productos' => $codigos_nuevos_productos
+		            //'codigos_nuevos_productos' => $codigos_nuevos_productos
 		        )
 		    ); 
 

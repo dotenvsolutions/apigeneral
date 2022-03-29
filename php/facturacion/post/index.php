@@ -78,7 +78,8 @@
                 'otros' => 0,
                 'orden' => '',
                 'fecha' => $data->cabecera->fecha,                
-                'fechav' => $data->cabecera->fechav
+                'fechav' => $data->cabecera->fechav,
+                'tipo_comprobante'=>['codigo'=>'01']
             ],
             'movimiento'=> [],
             'pago' => []
@@ -88,14 +89,14 @@
             foreach($data->movimiento as $k){
                 $factura['movimiento'][] = [
                     'producto' => [
-                        'codigo' => $k->producto->codigo
+                        'codigo' => '45'
                     ],
                     'cantidad' => 1,
                     'valor' => $k->valor,
                     'descuento' => 0,
                     'impuesto' => 0,
                     'ubicacion' => array(
-                        'codigo' => '1'
+                        'codigo' => '4'
                     ),
                     'cod_rf' => array(),
                     'cod_ri' => array(),
