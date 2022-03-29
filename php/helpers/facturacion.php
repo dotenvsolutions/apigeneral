@@ -80,7 +80,8 @@
 		    //Fin
 
 		    $data->cabecera->caja = isset($data->cabecera->caja->codigo) ? $data->cabecera->caja->codigo : '';
-		    $data->cabecera->destino = isset($data->cabecera->destino->codigo) && !empty($data->cabecera->destino->codigo) ? "'" . $data->cabecera->destino->codigo . "'" : 'NULL';
+		    print_r($data->cabecera->caja);return;
+			$data->cabecera->destino = isset($data->cabecera->destino->codigo) && !empty($data->cabecera->destino->codigo) ? "'" . $data->cabecera->destino->codigo . "'" : 'NULL';
 		    $data->cabecera->sustento_tributario = isset($data->cabecera->sustento_tributario->codigo) && !empty($data->cabecera->sustento_tributario->codigo) ? "'".$data->cabecera->sustento_tributario->codigo."'" : "NULL";
 		    $data->cabecera->tipo_comprobante = isset($data->cabecera->tipo_comprobante->codigo) && !empty($data->cabecera->tipo_comprobante->codigo) ? "'".$data->cabecera->tipo_comprobante->codigo."'" : "NULL";
 		    $data->cabecera->compra_importada = isset($data->cabecera->compra_importada) && !empty($data->cabecera->compra_importada) ? "'{$data->cabecera->compra_importada}'" : "NULL";
@@ -117,7 +118,7 @@
 			estacion,punto,comentario,caja,retencion_iva,retencion_fuente,sustento_tributario,impuesto,seguro) 
 		    VALUES ('CP','{$documento}', '{$empresa}', {$data->cabecera->fecha},{$data->cabecera->fechav},{$data->cabecera->fecha},
 			'{$data->cabecera->proveedor->codigo}', '{$data->cabecera->referencia}','{$data->cabecera->accion_usuario}',
-			'{$data->cabecera->estacion}','{$data->cabecera->punto}','{$data->cabecera->comentario}','{$data->cabecera->caja->codigo}',
+			'{$data->cabecera->estacion}','{$data->cabecera->punto}','{$data->cabecera->comentario}','{$data->cabecera->caja}',
 			'{$data->cabecera->retencion_iva}','{$data->cabecera->retencion_fuente}',{$data->cabecera->sustento_tributario},
 			'{$data->cabecera->impuesto}',{$data->cabecera->seguro});";
             print_r($query);return;
