@@ -12,7 +12,7 @@
         public function factura_compra($empresa, $data) {
 	    	//$getOpciones=new getOpciones($this->connect);
 	    	//$svcsFacturacion=new svcsFacturacion($this->connect,$empresa);
-	    	$webparams = webparams($empresa, [125,143],$this->connect);
+	    	//$webparams = webparams($empresa, [125,143],$this->connect);
 	    	$documento = NuevoCodigoDecimal($this->connect, 'in_cabecera', 'documento', 'tipo', 'CP', $empresa);
 		    $codigos_nuevos_productos = [];
 
