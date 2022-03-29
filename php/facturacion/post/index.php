@@ -110,10 +110,10 @@
             }
         }
         
-        $res = $putFacturacion->factura_compra($empresa, $data);
+        $res = $putFacturacion->factura_compra($empresa, $factura);
         if(!$res['success'])
             odbc_rollback($connect);
         else
             odbc_commit($connect);
-        print_r($factura);return;
+        //print_r($factura);return;
     }
